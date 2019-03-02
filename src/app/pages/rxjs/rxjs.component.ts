@@ -34,10 +34,10 @@ export class RxjsComponent implements OnInit, OnDestroy {
       (error) => {
         console.error('hay error', error);
   
-      }).add(
+      });/*.add(
         () => {
           console.log('terminó')
-      });
+      });*/
 
 
   }
@@ -48,7 +48,8 @@ export class RxjsComponent implements OnInit, OnDestroy {
 
  
   ngOnDestroy() {
-
+    this.subscription.unsubscribe();
+    console.log ('la pagina se va a cerrar'); 
   }
   
   
@@ -116,7 +117,7 @@ export class RxjsComponent implements OnInit, OnDestroy {
 
       }, 1000);
 
-    }) /*.pipe(
+    }).pipe(
       map(response => {
         return response.valor;
       }),
@@ -130,15 +131,10 @@ export class RxjsComponent implements OnInit, OnDestroy {
           return false;
         }
       })
-    );*/
+    );
 
     
   }
   
-  public terminar () {
-
-    this.subscription.unsubscribe();
-    console.log ('la pagina se va a cerrar'); 
-  }
 
 }
