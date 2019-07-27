@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subscriber, Subscription } from 'rxjs';
+import { Observable, Subscriber, Subscription, forkJoin } from 'rxjs';
 import { retry, map, filter } from 'rxjs/operators';
 
 
@@ -27,31 +27,76 @@ export class RxjsComponent implements OnInit, OnDestroy {
     //   console.log ('terminó')
     // });
 
-    this.subscription = this.contarTresInfinito().subscribe(
-      (response: any) => {
-        console.log('respuesta', response);
-      },
-      (error) => {
-        console.error('hay error', error);
+    // this.subscription = this.contarTresInfinito().subscribe(
+    //   (response: any) => {
+    //     console.log('respuesta', response);
+    //   },
+    //   (error) => {
+    //     console.error('hay error', error);
   
-      });/*.add(
-        () => {
-          console.log('terminó')
-      });*/
+    //   });
+
+
 
 
   }
 
  
   ngOnInit() {
+
+    forkJoin(this.func1(), this.func2()).subscribe ( ([response1, response2])=>{
+
+
+      console.log ('respuestas',response1);
+      console.log ('respuestas',response2);
+    });
   }
 
  
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    //this.subscription.unsubscribe();
     console.log ('la pagina se va a cerrar'); 
   }
   
+
+  public func1():Observable<any> {
+
+    return new Observable ( (observer:Subscriber<any>)=>{
+
+      setTimeout(() => {
+
+
+        var fecha = new Date()
+        observer.next('hola func 1 ' + fecha.toString() );
+        observer.complete();
+        
+      }, 2000);
+
+
+    } )
+
+
+  }
+  public func2():Observable<any> {
+
+    return new Observable ( (observer:Subscriber<any>)=>{
+
+      setTimeout(() => {
+
+        var fecha = new Date()
+        observer.next('hola func 2 '+ fecha.toString());
+        observer.complete();
+        
+      }, 500);
+
+
+    } )
+
+
+  }
+
+
+
   
   public contarTres(): Observable<any> {
 
