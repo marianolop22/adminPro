@@ -1,7 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { UserService } from '../services/service.index';
+import swal from 'sweetalert';
+import { User } from '../models/user.model';
+import { Router } from '@angular/router';
+
 declare function init_plugins();
+
+// import * as _swal from 'sweetalert';
+// import { SweetAlert } from 'sweetalert/typings/core';
+ 
+// const swal: SweetAlert = _swal as any;
+
 
 @Component({
   selector: 'app-register',
@@ -12,7 +23,10 @@ export class RegisterComponent implements OnInit {
 
   form:FormGroup;
 
-  constructor() {
+  constructor(
+    public _userService: UserService,
+    public router: Router
+  ) {
   }
   
   ngOnInit() {
@@ -54,8 +68,27 @@ export class RegisterComponent implements OnInit {
 
     if ( !this.form.value.condiciones ) {
       console.log ('debe aceptar las condiciones');
+      swal('Impartante', 'debe aceptar las condiciones', 'warning');
       return;
     }
+
+    let user = new User (
+      this.form.value.nombre,
+      this.form.value.correo,
+      this.form.value.password
+    );
+
+    this._userService.createUser(user).subscribe (
+      response => {
+        console.log( 'respuestas ', response );
+        this.router.navigate (['/login']);
+      },
+      error => {
+        console.log (error);
+      }
+    );
+
+    
 
   }
 
