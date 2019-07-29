@@ -59,8 +59,6 @@ export class LoginComponent implements OnInit {
 
       let profile = googleUser.getBasicProfile();
       let token = googleUser.getAuthResponse().id_token;
-      console.log (profile, token);
-
       this._userService.loginGoogle ( token ).subscribe (
         response => {
           this.ngZone.run(() => this.router.navigate (['/dashboard'])).then(); //esta va porque viene desde google y luego navega
@@ -92,10 +90,6 @@ export class LoginComponent implements OnInit {
         this.router.navigate (['/dashboard']);
       }
     );
-
-    console.log ( form.valid);
-    console.log (form.value);
-
 
     // this.router.navigate (['/dashboard']);
   }

@@ -1,0 +1,68 @@
+<div class="row animated fadeIn">
+  <div class="col-lg-7">
+      <div class="card">
+          <div class="card-body">
+              <h4 class="card-title">Perfil del usuario</h4>
+              <h6 class="card-subtitle">NOMBRE DE USUARIO</h6>
+
+              <form class="form p-t-20" ngNativeValidate #form="ngForm" (ngSubmit)="save(form.value)">
+                  <div class="form-group">
+                      <label for="exampleInputuname">Nombre de Usuario</label>
+                      <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="ti-user"></i>
+                            </span>
+                          </div>
+                          <input [ngModel]="user.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre de Usuario" required>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="exampleInputEmail1">Correo del Usuario</label>
+                      <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="ti-email"></i>
+                              </span>
+                          </div>
+                          <input [disabled]="user.google" [ngModel]="user.email" name="email" type="email" class="form-control" placeholder="Correo" required>
+                      </div>
+                  </div>
+                  <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+                    <i class="fa fa-save"></i> 
+                    Guardar
+                  </button>
+              </form>
+          </div>
+      </div>
+  </div>
+
+  <div class="col-lg-5">
+      <div class="card">
+          <div class="card-body">
+              <h4 class="card-title">Fotografía del Usuario</h4>
+              <h6 class="card-subtitle mb-4">NOMBRE DE USUARIO</h6>
+
+              
+
+              <img src="" alt="">
+              <input type="file" name="" id="" class="mb-5">
+
+
+              <button type="button" class="btn btn-block btn-success waves-effect waves-light m-r-10">
+                <i class="fa fa-save"></i> 
+                 Actualizar Foto
+              </button>              
+          </div>
+      </div>
+  </div>
+
+
+
+
+
+
+
+
+
+</div>

@@ -58,16 +58,11 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser () {
-    console.log ( this.form.value );
-
-    console.log (this.form.valid );
-
     if ( this.form.invalid ) {
       return;
     }
 
     if ( !this.form.value.condiciones ) {
-      console.log ('debe aceptar las condiciones');
       swal('Impartante', 'debe aceptar las condiciones', 'warning');
       return;
     }
@@ -80,11 +75,9 @@ export class RegisterComponent implements OnInit {
 
     this._userService.createUser(user).subscribe (
       response => {
-        console.log( 'respuestas ', response );
         this.router.navigate (['/login']);
       },
       error => {
-        console.log (error);
       }
     );
 

@@ -112,7 +112,6 @@ export class UserService {
     return this.http.post ( url, { token } )
       .pipe (
         map ( (response:any)=> {
-          console.log ( response );
           this.saveStorage ( response.id, response.token, response.usuario);
           return true;
         })
@@ -120,6 +119,21 @@ export class UserService {
 
   }
 
+  updateUser ( user:User ):Observable<any> {
+
+    let url = environment.URL_SERVICE + '/usuario/' + user._id;
+    url += `?token=${this.token}`;
+
+    return  this.http.put (url, user)
+      .pipe(
+        map ( (response:any) => {
+
+          swal('Usuario Actualizado', user.nombre, 'success');
+          this.saveStorage ( response.usuario._id, this.token, response.usuario);
+          return true;
+        })
+      );
+  }
 
 
 
