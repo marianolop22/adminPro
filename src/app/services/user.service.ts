@@ -155,6 +155,27 @@ export class UserService {
       })
   }
 
+  loadUsers( from: number = 0): Observable<any> {
+
+    let url = environment.URL_SERVICE + `/usuario?desde=${from}`;
+
+    return this.http.get(url);
+
+  }
+
+  searchUsers ( term:string ):Observable<any> {
+
+    let url = environment.URL_SERVICE + `/busqueda/coleccion/usuarios/${term}`;
+
+    return this.http.get ( url )
+      .pipe(
+        map ( (response:any)=>{
+          return response.usuarios;
+        } )
+      );
+  }
+
+
 
 
  }

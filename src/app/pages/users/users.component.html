@@ -1,0 +1,85 @@
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+
+        <input (keyup)="searchUser( inputUser.value)" #inputUser class="form-control" type="text" placeholder="Buscar Usuario...">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="loading">
+  <div class="col-sm-12">
+    <div class="alert alert-warning text-center">
+      <strong>Cargando</strong>
+      <br>
+      <i class="fa fa-refresh fa-spin fa-2x"></i>
+      <br>
+      <span>Espere por favor</span>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!loading">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+
+        <h3 class="card-title">
+          Usuarios Registrados ( <small>{{total}}</small> )
+        </h3>
+
+        <table class="table table-hover">
+          <thead>
+            <th>Imagen</th>
+            <th>Correo</th>
+            <th>Nombre</th>
+            <th>Role</th>
+            <th>Auth</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of users">
+              <td class="w70"><img [src]="item.img|image" alt="" class="img-50 img-circle"  ></td>
+              <td>{{item.email}}</td>
+              <td>{{item.nombre}}</td>
+              <td>{{item.role}}</td>
+              <td>
+                <label *ngIf="item.google" class="label label-danger"> <i class="fa fa-google"></i> </label>
+                <label *ngIf="!item.google" class="label label-primary"> <i class="fa fa-user" ></i> </label>
+              </td>
+              <td>
+                <button class="btn btn-primary mr-1">
+                  <i class="fa fa-save"></i>
+                </button>
+                <button class="btn btn-danger">
+                  <i class="fa fa-trash-o"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item">
+              <button (click)="changePage(-5)" class="btn btn-secondary">
+                <i class="fa fa-angle-double-left"></i>
+              </button>
+            </li>
+            <li class="page-item">
+              <button (click)="changePage(5)" class="btn btn-secondary">
+                <i class="fa fa-angle-double-right"></i>
+              </button>
+            </li>
+          </ul>
+        </nav>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
