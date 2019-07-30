@@ -5,6 +5,7 @@ import { environment } from "../../environments/environment";
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { UploadFileService } from './upload-file.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,9 @@ export class UserService {
 
 
   constructor(
-    public http: HttpClient,
-    public router: Router
+    private http: HttpClient,
+    private router: Router,
+    private _updaloadFileService: UploadFileService
   ) {
     this.loadStorage();
   }
@@ -133,6 +135,24 @@ export class UserService {
           return true;
         })
       );
+  }
+
+  uploadImage (file:File, id:string ) {
+
+    this._updaloadFileService.uploadFiles ( file, 'usuarios', id )
+      .then ( (response:any) => {
+        console.log ( response );
+
+        swal ('Actualizacion de imagen', this.user.nombre, 'success');
+
+        this.user.img = response.usuario.img;
+        this.saveStorage ( id, this.token, this.user);
+
+
+      })
+      .catch ( error => {
+        console.log (error);
+      })
   }
 
 

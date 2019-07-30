@@ -25,10 +25,10 @@ export class UploadFileService {
           if ( xhr.status === 200 ) {
   
             console.log ('terminó de subir la imagem');
-            resolve ( xhr.response );
+            resolve ( JSON.parse ( xhr.response ) );
             } else {
             console.log ('falló la subida');
-            reject ( xhr.response );
+            reject ( JSON.parse ( xhr.response ) );
           }
         }
       }

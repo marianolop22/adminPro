@@ -11,6 +11,8 @@ import { NgForm } from '@angular/forms';
 export class ProfileComponent implements OnInit {
 
   user:User;
+  imageUpload: File;
+  imageTmp: string;
 
   constructor(
     public _userService :  UserService
@@ -32,9 +34,36 @@ export class ProfileComponent implements OnInit {
       response => {
       }
     );
-
-
-
   }
+
+  selectImage ( file:File ) {
+
+    if ( !file ) {
+      this.imageUpload = null;
+      return;
+    }
+    
+    if ( file.type.indexOf ('image') < 0 ) {
+      swal ('Solo imagenes', 'El archivo debe ser una imagen', 'error');
+      this.imageUpload = null;
+      return;
+    }
+
+    this.imageUpload = file;
+
+    let reader = new FileReader();
+    reader.readAsDataURL ( file );
+    reader.onloadend = () => {
+
+      //console.log (reader.result);
+      this.imageTmp = reader.result.toString();
+    }
+  }
+
+  uploadImage () {
+    this._userService.uploadImage( this.imageUpload, this.user._id);
+  }
+
+
 
 }

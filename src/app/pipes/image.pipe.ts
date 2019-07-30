@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 })
 export class ImagePipe implements PipeTransform {
 
-  transform(img: string, type: string = 'user'): any {
+  transform(img: string, type: string = 'usuario'): any {
 
     let url = environment.URL_SERVICE + '/img';
 
