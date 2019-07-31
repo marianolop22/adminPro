@@ -5,7 +5,8 @@ import { SettingsService,
          SidebarService, 
          UserService, 
          LoginGuard, 
-         UploadFileService
+         UploadFileService,
+         ModalUploadService
 } from "./service.index";
 import { HttpClientModule } from "@angular/common/http";
 
@@ -21,7 +22,8 @@ import { HttpClientModule } from "@angular/common/http";
     SidebarService,
     UserService,
     LoginGuard,
-    UploadFileService
+    UploadFileService,
+    ModalUploadService
   ]
 })
 export class ServiceModule { }

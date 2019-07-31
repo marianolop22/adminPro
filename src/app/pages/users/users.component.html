@@ -42,19 +42,26 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of users">
-              <td class="w70"><img [src]="item.img|image" alt="" class="img-50 img-circle"  ></td>
+              <td class="w70"><img (click)="showModal( item._id)" [src]="item.img|image" alt="" class="pointer img-50 img-circle"  ></td>
               <td>{{item.email}}</td>
               <td>{{item.nombre}}</td>
-              <td>{{item.role}}</td>
+              <td>
+                <!-- {{item.role}} -->
+                <select [(ngModel)]="item.role" class="form-control" name="role" id="">
+                  <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+                  <option value="USER_ROLE">USER_ROLE</option>
+                </select>
+              
+              </td>
               <td>
                 <label *ngIf="item.google" class="label label-danger"> <i class="fa fa-google"></i> </label>
                 <label *ngIf="!item.google" class="label label-primary"> <i class="fa fa-user" ></i> </label>
               </td>
               <td>
-                <button class="btn btn-primary mr-1">
+                <button (click)="saveUser( item )" class="btn btn-primary mr-1">
                   <i class="fa fa-save"></i>
                 </button>
-                <button class="btn btn-danger">
+                <button (click)="deleteUser( item )" class="btn btn-danger">
                   <i class="fa fa-trash-o"></i>
                 </button>
               </td>

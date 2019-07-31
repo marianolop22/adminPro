@@ -130,8 +130,11 @@ export class UserService {
       .pipe(
         map ( (response:any) => {
 
+          if ( user._id === this.user._id ) {
+            this.saveStorage ( response.usuario._id, this.token, response.usuario);
+          }
+
           swal('Usuario Actualizado', user.nombre, 'success');
-          this.saveStorage ( response.usuario._id, this.token, response.usuario);
           return true;
         })
       );
@@ -175,6 +178,21 @@ export class UserService {
       );
   }
 
+
+  deleteUser ( id:string ): Observable<any> {
+
+    let url = environment.URL_SERVICE + `/usuario/${id}?token=${this.token}`;
+
+    return this.http.delete (url)
+      .pipe (
+        map ( response => {
+          swal("Usuario borrado", 'el usuario ah sido borrado correctamente', {
+            icon: "success",
+          });
+          return true;
+        })
+      );
+  }
 
 
 
