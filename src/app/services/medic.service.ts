@@ -19,9 +19,9 @@ export class MedicService {
 
   getMedic ( id:string): Observable<Medic> {
 
-    let url = environment.URL_SERVICE + `/medicos/byid`;
+    let url = environment.URL_SERVICE + `/medico/${id}`;
 
-    return this.http.get (url, { params: { id: id } } )
+    return this.http.get (url )
       .pipe(
         map ( (response:any)=> {
           return response.medico;
