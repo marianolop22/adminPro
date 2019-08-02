@@ -11,6 +11,7 @@ import { SettingsService,
          MedicService
 } from "./service.index";
 import { HttpClientModule } from "@angular/common/http";
+import { AdminGuard } from './admin.guard';
 
 @NgModule({
   declarations: [],
@@ -27,7 +28,8 @@ import { HttpClientModule } from "@angular/common/http";
     UploadFileService,
     ModalUploadService,
     HospitalService,
-    MedicService
+    MedicService,
+    AdminGuard
   ]
 })
 export class ServiceModule { }
