@@ -73,6 +73,13 @@ export class UserService {
 
           swal('Usuario creado', user.email, 'success');
           return response.usuario;
+        }),
+        catchError ( err => {
+          console.log (err.status);
+          console.log (err.error.message);
+
+          return Observable.throw ( err );
+          //return false; 
         })
       );
   }
