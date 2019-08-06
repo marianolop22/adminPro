@@ -27,7 +27,7 @@ import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
-    PagesComponent,
+    //PagesComponent,
     DashboardComponent,
     ProgressComponent,
     Graficas1Component,
@@ -38,7 +38,7 @@ import { SearchComponent } from './search/search.component';
     RxjsComponent,
     ProfileComponent,
     UsersComponent,
-    ModalUploadComponent,
+    //ModalUploadComponent,
     HospitalsComponent,
     MedicsComponent,
     MedicComponent,

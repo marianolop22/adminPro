@@ -30,6 +30,32 @@ export class UserService {
     return ( this.token.length > 1 ) ? true : false;
   }
 
+  renewToken ():Observable<any> {
+
+    let url = environment.URL_SERVICE + `/login/renuevatoken?token=${this.token}`;
+
+    return this.http.get (url)
+      .pipe (
+        map( (response:any) => {
+
+          this.token = response.token;
+          localStorage.setItem ('token', this.token);
+
+          return true;
+        }),
+        catchError ( err => {
+          console.log ('sesion vencida');
+          console.log (err.error.message);
+
+          this.router.navigate(['/login']);
+          return Observable.throw ( err );
+          //return false; 
+        })
+      );
+
+  }
+
+
 
   loadStorage () {
 
