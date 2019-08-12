@@ -43,7 +43,7 @@ export class UserService {
 
           return true;
         }),
-        catchError ( err => {
+        catchError ( err => {  
           console.log ('sesion vencida');
           console.log (err.error.message);
 

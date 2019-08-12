@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate, Router } from '@angular/router';
+// import { Observable } from 'rxjs';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -9,7 +9,8 @@ import { UserService } from './user.service';
 export class CheckTokenGuard implements CanActivate {
 
   constructor (
-    private _userService: UserService
+    private _userService: UserService,
+    private router: Router
   ) {
 
   }
@@ -22,13 +23,40 @@ export class CheckTokenGuard implements CanActivate {
     console.log ( payload);
 
     if ( this.isExpired (payload.exp) ) {
+      this.router.navigate (['/login']);
       return false;
     }
-    
 
-
-    return true;
+    return this.checkAndRenew (payload.exp) ;
   }
+
+  checkAndRenew ( expiredDate: number ): Promise<boolean> {
+    return new Promise ( (resolve, reject) => {
+
+      let tokenExp = new Date ( expiredDate * 1000 );
+      let now = new Date ();
+
+      now.setTime( now.getTime()  + ( 4 * 60 * 60 * 1000 ) );
+
+      if ( tokenExp.getTime() > now.getTime () ) {
+        resolve ( true ); //quiere decir que faltan más de 4 hs para vencer y no lo renuevo
+      } else {
+
+        this._userService.renewToken ().subscribe (
+          response => {
+            resolve (true);
+          } ,
+          error => {
+            this.router.navigate (['/login']);
+            reject(false);
+          }
+        );
+      }
+    });
+  }
+
+
+
 
 
   isExpired ( expiredDate: number) {
